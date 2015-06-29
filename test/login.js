@@ -20,7 +20,7 @@ describe('login', function(){
         .url('http://www.fangcloud.com')
         .title(function(err, res) {
             res.value.should.equal('亿方云 -移动办公平台.资料共享.文件备份.国内安全云端网盘.云存储同步网盘服务商');
-            console.log('Title was: ' + res.value);          //输出首页title
+            // console.log('Title was: ' + res.value);          //输出首页title
             // console.log(arguments);
             done();
         });
@@ -36,9 +36,26 @@ describe('login', function(){
 
     });
 
+    it('登录失败', function(done){
+        client
+        .waitForExist('#full_page',1000)
+        .setValue('#email',config.username)     //输入邮箱
+        .setValue('#password',config.wrongpsd)                 //输入密码
+        .submitForm('.form', function(err,res){
+            client
+            .waitForExist('.error-msg',1000)
+            .getText('.error-msg',function(err,text){
+                var errorMessage = ['请输入有效的邮箱','邮箱或密码错误','请输入邮箱'];
+                errorMessage.indexOf(text).should.not.equal(-1);
+
+                done();
+            });
+        });
+    });
+
     it('登录成功', function(done){
         client
-        .waitForExist('#full_page',5000)
+        .waitForExist('#full_page',1000)
         .setValue('#email',config.username)     //输入邮箱
         .setValue('#password',config.password)                 //输入密码
         .submitForm('.form', function(err,res){
