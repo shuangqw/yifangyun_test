@@ -1,5 +1,6 @@
 var login = require('../utils/login');
 var should = require('chai').should();
+var folderName = Math.round(Math.random()*1000000);
 
 describe('新建文件夹', function(){
     var client;
@@ -11,13 +12,13 @@ describe('新建文件夹', function(){
 
     it('新建个人文件夹按钮可点击', function(done){
         client
-        .waitForExist('#fileListView',8000)
+        .waitForExist('#fileListView',5000)
         .click('#new_folder', function(){
             client
             .pause(5000)
             // .waitForExist('.egeui-dialog',5000)
             .getText('.egeui-dialog-title', function(err,text){
-                // console.log(text);
+                console.log(text);
                 text.should.equal('新建文件夹');
 
                 done();
@@ -41,22 +42,22 @@ describe('新建文件夹', function(){
         });
     });
 
-    it('删除个人文件夹', function(done){
-        client
-        .click('[data-title="更多选项"]')
-        .pause(1000)
-        .click('#container-main .delete')
-        .pause(1000)
-        .click('[data-role="confirm"]', function(){
-            client
-            .pause(1000)
-            .getText('.file-name', function(err,text){
-                text[0].should.not.equal(folderName.toString());
+    // it('删除个人文件夹', function(done){
+    //     client
+    //     .click('[data-title="更多选项"]')
+    //     .pause(1000)
+    //     .click('#container-main .delete')
+    //     .pause(1000)
+    //     .click('[data-role="confirm"]', function(){
+    //         client
+    //         .pause(1000)
+    //         .getText('.file-name', function(err,text){
+    //             text[0].should.not.equal(folderName.toString());
 
-                done();
-            });
-        });
-    });
+    //             done();
+    //         });
+    //     });
+    // });
 
     after(function(done){
         client.end(done);
