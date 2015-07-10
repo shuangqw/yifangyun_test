@@ -28,9 +28,11 @@ describe('login', function(){
 
     it('登录页存在', function(done){
         client
-        .click('=登录')
+        .waitForExist('.site-nav span+.login',5000)
+        .click('.site-nav span+.login')
         .title(function(err, res){
             res.value.should.equal('登录 - 亿方云');
+
             done();
         });
 
