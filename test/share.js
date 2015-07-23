@@ -3,17 +3,25 @@ var should = require('chai').should();
 var newfolder = require('../utils/newfolder');
 var folderName = Math.round(Math.random()*1000000);
 var shareLink = '';
+var webdriverio = require('webdriverio');
+var should = require('chai').should();
+var options = {
+    desiredCapabilities: {
+        browserName: 'chrome'
+    }
+};
 
 
 describe('分享', function(){
     var client;
     this.timeout(999999999);
 
-    before(function(done){
-        client = login(done);
+    beforeEach(function(done){
+        client = webdriverio.remote(options).init(done);
     });
 
-    it('分享文件夹按钮可点击', function(done){
+    it('分享文件夹', function(done){
+        login(done);
         newfolder(client,folderName,done);
 
         client
@@ -23,29 +31,30 @@ describe('分享', function(){
         .click('#context_menu .share')
         .waitForExist('.egeui-dialog-content',5000)
         .getText('.egeui-dialog-content .egeui-dialog-title', function(err,text){
-            text.should.equal('分享文件夹：'+folderName);
-
-            done();
-        });
-    });
-
-    it('文件夹可分享', function(done){
-        client
-        .click('.submit', function(){
-            console.log('aaa');
+            console.log('分享文件夹：'+folderName);
         })
+        .click('.submit')
         .pause(1000)
         .waitForExist('#share_link',5000)
         .getValue('#share_link', function(err,value){
             value.should.not.equal('');
 
             shareLink = value;
+            console.log(shareLink);
 
             done();
         });
     });
 
-    after(function(done){
+    it('分享链接可见',function(done){
+        client
+        .url(shareLink)
+        .title(function(err,res){
+            console.log(res.value);
+        });
+    });
+
+    afterEach(function(done){
         client.end(done);
         client = null;
     });

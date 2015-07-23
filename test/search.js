@@ -15,11 +15,13 @@ describe('搜索', function(){
 
     it('搜索汉字', function(done){
         client
+        .pause(5000)
         .waitForExist('#fileListView',8000)
         .setValue('#file_search', searchconfig.chineseword)
         .submitForm('#search_form', function(){
-            client.pause(1000);
+            client.pause(2000);
         })
+        .pause(2000)
         .title(function(err,res){
             res.value.should.equal('搜索 "'+searchconfig.chineseword+'" - 亿方云');
 
@@ -95,15 +97,18 @@ describe('搜索', function(){
     it('搜索新建的文件夹能否搜索到', function(done){
         newfolder(client, folderName, done);
         client
-        // .newfolder(folderName, done)
+        .pause(5000)
         .waitForExist('#fileListView',8000)
         .setValue('#file_search', folderName)
         .submitForm('#search_form', function(){
             client.pause(1000);
         })
-        .pause(5000)
-        .title(function(err,res){
-            res.value.should.equal('搜索 "'+folderName+'" - 亿方云');
+        .pause(8000)
+        .waitForExist('#fileList',9000)
+        .getText('#fileList .list:first-child .file-name', function(err,text){
+            text.should.equal(folderName.toString());
+            // console.log(text[0]);
+            // console.log(folderName.toString());
 
             done();
         });

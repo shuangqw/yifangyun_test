@@ -12,14 +12,14 @@ describe('文件夹操作', function(){
 
     it('新建个人文件夹按钮可点击', function(done){
         client
-        .waitForExist('#fileListView',8000)
-        .waitForExist('#new_folder',8000)
+        .pause(8000)
+        // .waitForExist('#fileListView',8000)
         .click('#new_folder', function(){
             client
             .pause(2000)
             // .waitForExist('.egeui-dialog',5000)
             .getText('.egeui-dialog-title', function(err,text){
-                console.log(text);
+                // console.log(text);
                 text.should.equal('新建文件夹');
 
                 done();
@@ -86,7 +86,6 @@ describe('文件夹操作', function(){
             });
         });
     });
-
 
 
     after(function(done){
