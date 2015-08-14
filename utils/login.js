@@ -1,4 +1,4 @@
-var webdriverio = require('webdriverio');
+var webdriverio = require('webdriverio');     //配置文件引用
 var config = require('../config.js');
 var options = {
     desiredCapabilities: {

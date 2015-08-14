@@ -1,4 +1,4 @@
-module.exports = function newfolder(client,folderName,done) {
+module.exports = function newfolder(client,folderName,done) {   //新建文件夹，client对象，文件夹名称，done
     client
         .pause(8000)
         .waitForExist('#fileListView',8000)

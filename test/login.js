@@ -1,9 +1,9 @@
-var config = require('../config.js');
+var config = require('../config.js');         //用户名密码的配置文件
 
 var webdriverio = require('webdriverio');
 var should = require('chai').should();
 var options = {
-    desiredCapabilities: {
+    desiredCapabilities: {                    //调用chrome浏览器
         browserName: 'chrome'
     }
 };
@@ -15,7 +15,7 @@ describe('login', function(){
         client = webdriverio.remote(options).init(done);
     });
 
-    it('首页title存在', function(done){
+    it('首页title存在', function(done){        //进入首页并通过title进行验证
         client
         .url('http://www.fangcloud.com')
         .title(function(err, res) {
@@ -26,7 +26,7 @@ describe('login', function(){
         });
     });
 
-    it('登录页存在', function(done){
+    it('登录页存在', function(done){          //通过title验证进入登录页面
         client
         .waitForExist('.site-nav span+.login',5000)
         .click('.site-nav span+.login')
@@ -38,7 +38,7 @@ describe('login', function(){
 
     });
 
-    it('登录失败', function(done){
+    it('登录失败', function(done){             //错误的用户名密码
         client
         .waitForExist('#full_page',1000)
         .setValue('#email',config.username)     //输入邮箱
@@ -55,7 +55,7 @@ describe('login', function(){
         });
     });
 
-    it('登录成功', function(done){
+    it('登录成功', function(done){            //正确的用户名密码登录
         client
         .waitForExist('#full_page',1000)
         .setValue('#email',config.username)     //输入邮箱
@@ -77,19 +77,3 @@ describe('login', function(){
         client = null;
     });
 });
-// webdriverio
-//     .click('=登录')                                      //进入登录页
-//
-//     // .waitForExist('li.list', 5000)                      //等待文件列表页加载成功
-//     // .title(function(err,res){
-//     //     // console.log(res.value);
-//     //     var mes = '全部文件 - 亿方云';
-//     //     if(mes == res.value){
-//     //         console.log('login success');               //根据title判断是否登录成功，成功后title会变成“全部文件 - 亿方云”
-    //     }else{
-    //         console.log('login failed!');
-    //     }
-    // });
-    // .url('https://www.fangcloud.com/apps/files/home', function(err,res){
-    //     console.log(res);
-    // });

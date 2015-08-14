@@ -47,6 +47,8 @@ describe('分享', function(){
     });
 
     it('分享链接可见',function(done){
+        client = webdriverio.remote(options).init(done);
+
         client
         .url(shareLink)
         .title(function(err,res){

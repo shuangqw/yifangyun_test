@@ -10,28 +10,14 @@ describe('文件夹操作', function(){
         client = login(done);
     });
 
-    it('新建个人文件夹按钮可点击', function(done){
+    it('新建个人文件夹', function(done){
         client
         .pause(8000)
         // .waitForExist('#fileListView',8000)
-        .click('#new_folder', function(){
-            client
-            .pause(2000)
-            // .waitForExist('.egeui-dialog',5000)
-            .getText('.egeui-dialog-title', function(err,text){
-                // console.log(text);
-                text.should.equal('新建文件夹');
-
-                done();
-            });
-        });
-    });
-
-    it('新建个人文件夹', function(done){
-        // var folderName = Math.round(Math.random()*1000000);
-        client
+        .click('#create_new')
+        .waitForExist('[data-type="0"]',8000)
+        .click('[data-type="0"]')
         .setValue('#new_item_name', folderName)
-        .click('[data-radio-value="create_folder"]')
         .click('.submit', function(){
             client
             .pause(1000)
@@ -43,13 +29,13 @@ describe('文件夹操作', function(){
         });
     });
 
+
     it('删除个人文件夹', function(done){
         client
-        .pause(5000)
-        // .waitForExist('.file-name',5000)
-        .click('#fileList .list:first-child .icon-context')
+        .waitForExist('#fileList',5000)
+        .click('#fileList .list:first-child .item-clickable')
         .pause(1000)
-        .click('#context_menu .delete')
+        .click('.file-action .delete')
         .pause(1000)
         .click('[data-role="confirm"]', function(){
             client
@@ -63,17 +49,16 @@ describe('文件夹操作', function(){
     });
 
     it('新建协作文件夹', function(done){
-        // var folderName = Math.round(Math.random()*1000000);
         client
         .pause(8000)
-        .click('#new_folder')
-        .setValue('#new_item_name', folderName+'协作')
+        .click('#create_new')
+        .waitForExist('[data-type="4"]')
+        .click('[data-type="4"]')
+        .pause(1000)
+        .setValue('.input-primary', folderName+'协作')
         .click('.egeui-dialog-content .dialog-action .submit')
         .pause(1000)
         .setValue('.add-new-collab .collab-select .contact-selector input', '张艳')
-        // .click('.egeui-select .item-list:first-child .egeui-select-item', function(){
-        //     console.log('there');
-        // })
         .pause(1000)
         .keys('Enter')
         .click('.dialog-action .send', function(){
