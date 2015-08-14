@@ -23,15 +23,6 @@ describe('搜索', function(){
 
             done();
         });
-        // .submitForm('#search_form', function(){
-        //     client.pause(2000);
-        // })
-        // .pause(2000)
-        // .title(function(err,res){
-        //     res.value.should.equal('搜索 "'+searchconfig.chineseword+'" - 亿方云');
-
-        //     done();
-        // });
     });
 
 
