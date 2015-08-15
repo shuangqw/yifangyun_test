@@ -6,14 +6,27 @@ var options = {
     }
 };
 
-module.exports = function login(done) {
-   return webdriverio
-    .remote(options)
+module.exports = function login(_config, _options, done) {
+    // 向前兼容老的调用方式
+    if (typeof _config === 'function') {
+      done = _config;
+    }
+
+    var username = _config.username || config.username;
+    var password = _config.password || config.password;
+    var host = _config.host || 'www.fangcloud.com';
+
+    _options = _options || options;
+
+    return webdriverio
+    .remote(_options)
     .init()
-    .url('http://www.fangcloud.com/auth/login')
-    .setValue('#email',config.username)
-    .setValue('#password',config.password)
+    .url('http://' + host + '/auth/login')
+    .setValue('#email', username)
+    .setValue('#password', password)
     .submitForm('.form', function(){
-      done();
+        if(typeof done === 'function') {
+            done();
+        }
     });
 };
