@@ -10,6 +10,7 @@
   "license": "BSD",
   "dependencies": {
     "chai": "~3.0.0",
+    "cheerio": "~0.19.0",
     "mocha": "~2.2.5",
     "webdriverio": "~2.4.5"
   }
