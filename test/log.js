@@ -6,7 +6,7 @@ var should = require('chai').should();
 var login = require('../utils/login');
 var options = {
     desiredCapabilities: {                    //调用chrome浏览器
-        browserName: 'firefox'
+        browserName: 'chrome'
     }
 };
 
