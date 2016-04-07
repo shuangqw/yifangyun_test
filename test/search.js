@@ -87,7 +87,7 @@ describe('搜索', function(){
         })
         .pause(5000)
         .title(function(err,res){
-            res.value.should.equal('全部文件 - 亿方云');
+            res.value.should.not.equal('搜索 - 亿方云');
 
             done();
         });

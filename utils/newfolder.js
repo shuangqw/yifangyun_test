@@ -5,5 +5,7 @@ module.exports = function newfolder(client,folderName,done) {   //新建文件�
         .waitForExist('[data-type="0"]',8000)
         .click('[data-type="0"]')
         .setValue('#new_item_name', folderName)
-        .click('.submit');
+        .click('.submit',function(){
+          done();
+        });
 };
