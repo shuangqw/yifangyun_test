@@ -1,16 +1,24 @@
 var login = require('../utils/login');
 var should = require('chai').should();
+var config = require('../config');
 var folderName = Math.round(Math.random()*1000000);
+var options = {
+    desiredCapabilities: {                    //调用chrome浏览器
+        browserName: 'chrome'
+    }
+};
+
 
 describe('文件夹操作', function(){
     var client;
-    this.timeout(999999999);
+    this.timeout(10000);
 
     before(function(done){
-        client = login(done);
+        client = login(config.log,options,done);
     });
 
     it('新建个人文件夹', function(done){
+        console.log('here');
         client
         .pause(8000)
         // .waitForExist('#fileListView',8000)
@@ -74,6 +82,7 @@ describe('文件夹操作', function(){
 
 
     after(function(done){
+        console.log('end');
         client.end(done);
         client = null;
     });

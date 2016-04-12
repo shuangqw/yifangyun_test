@@ -14,7 +14,7 @@ module.exports = function login(_config, _options, done) {
 
     var username = _config.username || config.username;
     var password = _config.password || config.password;
-    var host = _config.host || 'staging.fangcloud.net';
+    var host = _config.host || 'www.fangcloud.com';
 
     _options = _options || options;
 

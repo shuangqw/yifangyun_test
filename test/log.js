@@ -66,7 +66,7 @@ describe('Log', function(done){
       action.should.equal('登录成功');
 
       done();
-    })
+    });
   });
 
   it('登录失败日志', function(done){
