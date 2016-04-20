@@ -39,7 +39,7 @@ describe('文件相关操作', function(){
         });
     });
 
-    it('检查菜单栏是否正确', function(done){
+    it.skip('检查菜单栏是否正确', function(done){
         client
         .click('#fileList > .list:first-child > .file-item .icon-file-arrow-down')
         .pause(2000)
@@ -88,7 +88,7 @@ describe('文件相关操作', function(){
         });
     });
 
-    it('加入收藏', function(done){
+    it.skip('加入收藏', function(done){
         client
         .pause(2000)
         .click('#fileList > .list:first-child > .file-item .icon-file-arrow-down')
@@ -103,7 +103,7 @@ describe('文件相关操作', function(){
         });
     });
 
-    it('取消收藏', function(done){
+    it.skip('取消收藏', function(done){
         client
         .pause(2000, function(){
             console.log('试试');
@@ -124,7 +124,7 @@ describe('文件相关操作', function(){
         });
     });
 
-    it('发起审阅', function(done) {         //通过右侧下三角处的右侧菜单进行审阅操作
+    it.skip('发起审阅', function(done) {         //通过右侧下三角处的右侧菜单进行审阅操作
         client
         .pause(2000)
         .click('#fileList > .list:first-child > .file-item .icon-file-arrow-down')
@@ -147,7 +147,7 @@ describe('文件相关操作', function(){
         });
     });
 
-    it('添加评论', function(done){         //通过右侧下三角处的右侧菜单进行评论操作
+    it.skip('添加评论', function(done){         //通过右侧下三角处的右侧菜单进行评论操作
         client
         .pause(2000)
         .click('#fileList > .list:first-child > .file-item .icon-file-arrow-down')
@@ -157,6 +157,7 @@ describe('文件相关操作', function(){
         .setValue('#fileList > .list:first-child > .comments .comment-input', '来自selenium的评论')
         .click('#fileList > .list:first-child > .comments .addComment')
         .pause(2000)
+        .waitForExist('#fileList > .list:first-child > .comments .comment-list',4000)
         .getText('#fileList > .list:first-child > .comments .comment-list li:first-child .comment-content',function(err, res){
             res.should.equal('来自selenium的评论');
 
@@ -184,18 +185,7 @@ describe('文件相关操作', function(){
         });
     });
 
-
-    it.skip('移动文件', function(done){
-        client
-        .pause(2000)
-        .click('#fileList > .list:first-child > .file-item .icon-file-arrow-down')
-        .pause(2000)
-        .waitForExist('#context_menu .move', 2000)
-        .click('#context_menu .move')
-        .waitForExist('.egeui-dialog .egeui-dialog-title', 4000);
-    });
-
-    it('重命名', function(done){
+    it.skip('重命名', function(done){
         client
         .pause(2000)
         .click('#fileList > .list:first-child > .file-item .icon-file-arrow-down')
@@ -215,7 +205,7 @@ describe('文件相关操作', function(){
         });
     });
 
-    it('更改文件属性', function(done){
+    it.skip('更改文件属性', function(done){
         client
         .pause(2000)
         .click('#fileList > .list:first-child > .file-item .icon-file-arrow-down')
@@ -241,6 +231,36 @@ describe('文件相关操作', function(){
             .click('.egeui-dialog .dialog-action .submit')
             .pause(2000);
 
+            done();
+        });
+    });
+
+    it('复制文件到根目录', function(done){
+        client
+        .pause(2000)
+        .click('#fileList > .list:first-child > .file-item .icon-file-arrow-down')
+        .pause(2000)
+        .waitForExist('#context_menu .copy', 2000)
+        .click('#context_menu .copy')
+        .waitForExist('.egeui-dialog .egeui-dialog-title', 4000)
+        .click('.folders-tree > ul > li > a')
+        .waitForExist('.egeui-dialog',4000)
+        .click('.egeui-dialog .dialog-action .copy', function(){
+            done();
+        });
+    });
+
+    it('移动文件到根目录', function(done){
+        client
+        .pause(2000)
+        .click('#fileList > .list:first-child > .file-item .icon-file-arrow-down')
+        .pause(2000)
+        .waitForExist('#context_menu .move', 2000)
+        .click('#context_menu .move')
+        .waitForExist('.egeui-dialog .egeui-dialog-title', 4000)
+        .click('.folders-tree > ul > li > a')
+        .waitForExist('.egeui-dialog',4000)
+        .click('.egeui-dialog .dialog-action .move', function(){
             done();
         });
     });
