@@ -22,7 +22,7 @@ module.exports = function login(_config, _options, done) {
     .remote(_options)
     .init()
     .url('http://' + host + '/auth/login')
-    .setValue('#email', username)
+    .setValue('#login', username)
     .setValue('#password', password)
     .submitForm('.form', function(){
         if(typeof done === 'function') {

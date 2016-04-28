@@ -41,7 +41,7 @@ describe('login', function(){
     it('登录失败', function(done){             //错误的用户名密码
         client
         .waitForExist('#full_page',1000)
-        .setValue('#email',config.username)     //输入邮箱
+        .setValue('#login',config.username)     //输入邮箱
         .setValue('#password',config.wrongpsd)                 //输入密码
         .submitForm('.form', function(err,res){
             client
@@ -58,7 +58,7 @@ describe('login', function(){
     it('登录成功', function(done){            //正确的用户名密码登录
         client
         .waitForExist('#full_page',1000)
-        .setValue('#email',config.username)     //输入邮箱
+        .setValue('#login',config.username)     //输入邮箱
         .setValue('#password',config.password)                 //输入密码
         .submitForm('.form', function(err,res){
             client

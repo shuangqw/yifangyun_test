@@ -16,7 +16,7 @@ describe('文件夹操作', function(done){
   this.timeout(99999999);
 
   before(function(done){
-    client = login(config.log,options);
+    client = login(config.staging,options);
 
     newFolder(client,folderName,done);
   });
@@ -180,4 +180,44 @@ describe('文件夹操作', function(done){
     });
   });
 
+  it.skip('转交文件夹所有权',function(done){
+    client
+    .pause(2000)
+    .click('#fileList > .list:first-child > .file-item .icon-file-arrow-down')
+    .pause(2000)
+    .waitForExist('#context_menu .change-owner', 2000)
+    .pause(2000)
+    .click('#context_menu .change-owner')
+    .waitForExist('.egeui-dialog .egeui-dialog-title', 2000)
+    .setValue('.change-owner-dialog .contact-control-group .contact-selector input', 'com')
+    .pause(2000)
+    .keys('Enter')
+    .pause(2000)
+    .click('.egeui-dialog .dialog-action .submit')
+    .pause(3000)
+    .isExisting('#fileList > .list:first-child > .file-item .icon-type-m-collab-folder', function(err, isExisting){
+        isExisting.should.equal(true);
+
+        done();
+    });
+  });
+
+  it.only('邀请协作者', function(done){
+    client
+    .pause(2000)
+    .click('#fileList > .list:first-child > .file-item .icon-file-arrow-down')
+    .pause(2000)
+    .waitForExist('context_menu .invite-collab', 2000)
+    .pause(2000)
+    .click('context_menu .invite-collab')
+    .waitForExist('.egeui-dialog .egeui-dialog-title', 2000)
+    .click('.collab-dialog .invite-btn')
+    .pause(2000)
+    .setValue('.contact-selector input', 'com')
+    .pause(2000)
+    .keys('Enter')
+    .pause(2000)
+    .click('.collab-dialog .invite-action button');
+    // .setValue()
+  });
 });
