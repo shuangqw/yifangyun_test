@@ -21,7 +21,7 @@ describe('个人文件相关操作', function(){
   var client;
   this.timeout(999999999);
 
-  before(function(done){
+  before(function(done){                 //准备测试数据，新建一个协作文件夹并进入文件夹内
     client = login(config.staging,options);
 
     newFolder(client,fileName);
@@ -44,7 +44,7 @@ describe('个人文件相关操作', function(){
   });
 
 
-  it.skip('检查菜单栏是否正确', function(done){
+  it('检查菜单栏是否正确', function(done){
     client
     .click('#fileList > .list:first-child > .file-item .icon-file-arrow-down')
     .pause(2000)
@@ -93,7 +93,7 @@ describe('个人文件相关操作', function(){
     });
   });
 
-  it.skip('加入收藏', function(done){
+  it('加入收藏', function(done){
     client
     .pause(2000)
     .click('#fileList > .list:first-child > .file-item .icon-file-arrow-down')
@@ -108,7 +108,7 @@ describe('个人文件相关操作', function(){
     });
   });
 
-  it.skip('取消收藏', function(done){
+  it('取消收藏', function(done){
     client
     .pause(2000, function(){
       console.log('试试');
@@ -129,7 +129,7 @@ describe('个人文件相关操作', function(){
     });
   });
 
-  it.skip('发起审阅', function(done) {         //通过右侧下三角处的右侧菜单进行审阅操作
+  it('发起审阅', function(done) {         //通过右侧下三角处的右侧菜单进行审阅操作
     client
     .pause(2000)
     .click('#fileList > .list:first-child > .file-item .icon-file-arrow-down')
@@ -140,7 +140,7 @@ describe('个人文件相关操作', function(){
     newReview(client,'审阅测试','com',done);
   });
 
-  it.skip('添加评论', function(done){         //通过右侧下三角处的右侧菜单进行评论操作
+  it('添加评论', function(done){         //通过右侧下三角处的右侧菜单进行评论操作
     client
     .pause(2000)
     .click('#fileList > .list:first-child > .file-item .icon-file-arrow-down')
@@ -198,7 +198,7 @@ describe('个人文件相关操作', function(){
     });
   });
 
-  it.skip('重命名', function(done){
+  it('重命名', function(done){
     client
     .pause(2000)
     .click('#fileList > .list:first-child > .file-item .icon-file-arrow-down')
@@ -237,7 +237,7 @@ describe('个人文件相关操作', function(){
     });
   });
 
-  it.skip('更改文件属性', function(done){
+  it('更改文件属性', function(done){
     client
     .pause(2000)
     .click('#fileList > .list:first-child > .file-item .icon-file-arrow-down')
@@ -249,7 +249,7 @@ describe('个人文件相关操作', function(){
 
   });
 
-  it.skip('创建分享链接', function(done){
+  it('创建分享链接', function(done){
     client
     .pause(2000)
     .click('#fileList > .list:first-child > .file-item > ul > li:first-child')
@@ -264,7 +264,7 @@ describe('个人文件相关操作', function(){
     });
   });
 
-  it.skip('复制文件到根目录', function(done){
+  it('复制文件到根目录', function(done){
     client
     .pause(2000)
     .click('#fileList > .list:first-child > .file-item .icon-file-arrow-down')
@@ -275,7 +275,7 @@ describe('个人文件相关操作', function(){
     copyToRoot(client, done);
   });
 
-  it.skip('移动文件到根目录', function(done){
+  it('移动文件到根目录', function(done){
     client
     .pause(2000)
     .click('#fileList > .list:first-child > .file-item .icon-file-arrow-down')

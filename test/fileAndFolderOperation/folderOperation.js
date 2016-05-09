@@ -172,7 +172,7 @@ describe('文件夹操作', function(done){
     setProperies(client, done);
   });
 
-  it.only('邀请协作者', function(done){
+  it('邀请协作者', function(done){
     var collabName = 'com';
 
     client
@@ -208,5 +208,23 @@ describe('文件夹操作', function(done){
     });
   });
 
+  it.only('同步文件夹到电脑', function(done){
+    client
+    .pause(2000)
+    .click('#fileList > .list:first-child > .file-item .icon-file-arrow-down')
+    .pause(2000)
+    .waitForExist('#context_menu .sync', 2000)
+    .click('#context_menu .sync')
+    .waitForExist('.egeui-confirmbox', 2000)
+    .click('.egeui-confirmbox .egeui-confirmbox-action .confirm', function(){
+        console.log(arguments);
+    })
+    .pause(4000)
+    .isExisting('#fileList > .list:first-child > .file-item .icon-sync', function(err, isExisting){
+        isExisting.should.equal(true);
+
+        done();
+    });
+  });
 
 });
