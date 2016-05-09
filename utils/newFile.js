@@ -1,5 +1,5 @@
 module.exports = function newfile(client, fileName, done) {   //新建文件，client对象，文件夹名称，done
-  client
+  return client
   .pause(5000)
   .waitForExist('#fileList',5000)
   .click('#create_new')
@@ -10,7 +10,8 @@ module.exports = function newfile(client, fileName, done) {   //新建文件，c
     client
     .pause(4000)
     .getText('.file-name', function(err,text){
-      text[0].should.equal(fileName.toString()+'.doc');
+      // console.log(text);
+      text.should.equal(fileName.toString()+'.doc');
 
       if(typeof done === 'function') {
         done();

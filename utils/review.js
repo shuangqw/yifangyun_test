@@ -1,5 +1,5 @@
 module.exports = function newReview(client, reviewName, reviewer, done) {
-  client
+  return client
   .waitForExist('.egeui-dialog .review-dialog',8000)
   .setValue('.egeui-dialog .review-dialog #commonform #title', reviewName)
   .click('.egeui-dialog .review-dialog .form-control-group .contact-selector >input')

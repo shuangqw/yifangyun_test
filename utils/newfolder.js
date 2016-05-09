@@ -1,5 +1,5 @@
 module.exports = function newfolder(client, folderName, done) {   //新建文件夹，client对象，文件夹名称，done
-  client
+  return client
   .pause(5000)
   .waitForExist('#fileList',5000)
   .click('#create_new')

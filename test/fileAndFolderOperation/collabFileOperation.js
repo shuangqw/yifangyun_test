@@ -1,10 +1,12 @@
 var login = require('../../utils/login');
 var newFile = require('../../utils/newFile');
+var newFolder = require('../../utils/newFolder');
 var newReview = require('../../utils/review');
 var moveToRoot = require('../../utils/moveToRoot');
 var copyToRoot = require('../../utils/copyToRoot');
 var addTags = require('../../utils/addTags');
 var setProperies = require('../../utils/setProperies');
+var inviteCollabators = require('../../utils/inviteCollabators');
 var config = require('../../config');
 var should = require('chai').should();
 var cheerio = require('cheerio');
@@ -21,6 +23,22 @@ describe('个人文件相关操作', function(){
 
   before(function(done){
     client = login(config.staging,options);
+
+    newFolder(client,fileName);
+
+    client
+    .pause(2000)
+    .click('#fileList > .list:first-child > .file-item .icon-file-arrow-down')
+    .pause(2000)
+    .waitForExist('#context_menu .invite-collab', 2000)
+    .pause(2000)
+    .click('#context_menu .invite-collab');
+
+    inviteCollabators(client,'com');
+
+    client
+    .pause(2000)
+    .click('#fileList > .list:first-child > .file-item .thumb-icon');
 
     newFile(client,fileName,done);
   });
@@ -52,7 +70,7 @@ describe('个人文件相关操作', function(){
       isExisting.should.equal(true);
     })
     .isExisting('#context_menu .locked', function(err, isExisting){
-      isExisting.should.equal(false);
+      isExisting.should.equal(true);
     })
     .isExisting('#context_menu .tags', function(err, isExisting){
       isExisting.should.equal(true);
@@ -140,7 +158,7 @@ describe('个人文件相关操作', function(){
     });
   });
 
-  it.skip('锁定文件', function(done){         //仅协作文件可锁定
+  it('锁定文件', function(done){         //仅协作文件可锁定
     client
     .pause(2000)
     .click('#fileList > .list:first-child > .file-item .icon-file-arrow-down')
@@ -152,9 +170,29 @@ describe('个人文件相关操作', function(){
     .click('.egeui-confirmbox .egeui-confirmbox-action button:last-child', function(){
       console.log('sss');
     })
-    .pause(2000)
-    .isExisting('.file-list-view .list:first-child .file-item .action-list .icon-file-locked').then(function(err,isExisting){
+    .pause(3500)
+    .isExisting('.file-list-view .list:first-child .file-item .action-list .icon-file-locked', function(err, isExisting){
       isExisting.should.equal(true);
+
+      done();
+    });
+  });
+
+  it('解锁文件', function(done){         //仅协作文件可锁定
+    client
+    .pause(2000)
+    .click('#fileList > .list:first-child > .file-item .icon-file-arrow-down')
+    .waitForExist('#context_menu .locked', 2000)
+    .click('#context_menu .locked .icon', function(){
+      console.log('sss');
+    })
+    .waitForExist('.egeui-confirmbox .egeui-confirmbox-title',8000)
+    .click('.egeui-confirmbox .egeui-confirmbox-action button:last-child', function(){
+      console.log('sss');
+    })
+    .pause(3500)
+    .isExisting('.file-list-view .list:first-child .file-item .action-list .icon-file-locked', function(err, isExisting){
+      isExisting.should.equal(false);
 
       done();
     });
@@ -180,7 +218,7 @@ describe('个人文件相关操作', function(){
     });
   });
 
-  it.only('添加标签', function(done){
+  it('添加标签', function(done){
     client
     .pause(2000)
     .click('#fileList > .list:first-child > .file-item .icon-file-arrow-down')

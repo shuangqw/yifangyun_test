@@ -142,7 +142,7 @@ describe('文件夹操作', function(done){
     });
   });
 
-  it.only('添加标签', function(done){
+  it('添加标签', function(done){
     client
     .pause(2000)
     .click('#fileList > .list:first-child > .file-item .icon-file-arrow-down')
@@ -172,7 +172,9 @@ describe('文件夹操作', function(done){
     setProperies(client, done);
   });
 
-  it('邀请协作者', function(done){
+  it.only('邀请协作者', function(done){
+    var collabName = 'com';
+
     client
     .pause(2000)
     .click('#fileList > .list:first-child > .file-item .icon-file-arrow-down')
@@ -181,7 +183,7 @@ describe('文件夹操作', function(done){
     .pause(2000)
     .click('#context_menu .invite-collab');
 
-    inviteCollabators(client, 'com' ,done);
+    inviteCollabators(client, collabName ,done);
   });
 
   it('转交文件夹所有权',function(done){
