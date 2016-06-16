@@ -17,7 +17,7 @@ var options = {
   }
 };
 
-describe('个人文件相关操作', function(){
+describe('个人文件相关操作 ', function(){
   var client;
   this.timeout(999999999);
 
